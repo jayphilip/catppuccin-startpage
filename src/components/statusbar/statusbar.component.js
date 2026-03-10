@@ -236,6 +236,7 @@ class Statusbar extends Component {
    * Sets up event listeners for tab interactions and navigation
    */
   setEvents() {
+    this._transitioning = false;
     this.refs.tabs.forEach((tab) => (tab.onclick = ({ target }) => this.handleTabChange(target)));
 
     document.onkeydown = (e) => this.handleKeyPress(e);
@@ -282,10 +283,14 @@ class Statusbar extends Component {
    */
   handleWheelScroll(event) {
     if (!event) return;
+    if (this._transitioning) return;
 
-    let { target, wheelDelta } = event;
+    let { target, deltaX, deltaY, wheelDelta } = event;
 
     if (target.shadow && target.shadow.activeElement) return;
+
+    // Only act on predominantly horizontal scroll to avoid accidental switches on vertical scroll
+    const delta = Math.abs(deltaX) >= Math.abs(deltaY) ? deltaX : (wheelDelta != null ? -wheelDelta : deltaY);
 
     // Find currently active tab
     let activeTab = -1;
@@ -295,11 +300,11 @@ class Statusbar extends Component {
       }
     });
 
-    // Navigate to next or previous tab based on wheel direction
-    if (wheelDelta > 0) {
-      this.activateByKey((activeTab + 1) % (this.refs.tabs.length - 1));
-    } else {
-      this.activateByKey(activeTab - 1 < 0 ? this.refs.tabs.length - 2 : activeTab - 1);
+    // Navigate to next or previous tab based on scroll direction
+    if (delta < 0) {
+      this.navigateTab(activeTab, 1);
+    } else if (delta > 0) {
+      this.navigateTab(activeTab, -1);
     }
   }
 
@@ -317,7 +322,34 @@ class Statusbar extends Component {
     // Activate tab by number key (1-5)
     if (Number.isInteger(parseInt(key)) && key <= this.externalRefs.categories.length) {
       this.activateByKey(key - 1);
+      return;
     }
+
+    // Navigate tabs with arrow keys
+    if (key === "ArrowLeft" || key === "ArrowRight") {
+      if (this._transitioning) return;
+      event.preventDefault();
+      let activeTab = -1;
+      this.refs.tabs.forEach((tab, index) => {
+        if (tab.getAttribute("active") === "") activeTab = index;
+      });
+      this.navigateTab(activeTab, key === "ArrowRight" ? 1 : -1);
+    }
+  }
+
+  /**
+   * Navigate to a neighbouring tab with direction, guarded by transition lock
+   * @param {number} activeTab - Current tab index
+   * @param {number} direction - +1 for next, -1 for previous
+   */
+  navigateTab(activeTab, direction) {
+    const tabCount = this.refs.tabs.length - 1;
+    const next = direction > 0
+      ? (activeTab + 1) % tabCount
+      : (activeTab - 1 < 0 ? tabCount - 1 : activeTab - 1);
+    this._transitioning = true;
+    this.activateByKey(next);
+    setTimeout(() => { this._transitioning = false; }, 650);
   }
 
   /**
