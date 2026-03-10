@@ -78,13 +78,13 @@ const default_configuration = {
             {
               name: "bbc news",
               url: "https://www.bbc.co.uk/news",
-              icon: "brand-bbc",
+              icon: "writing",
               icon_color: palette.red,
             },
             {
               name: "the guardian",
               url: "https://www.theguardian.com",
-              icon: "writing",
+              icon: "brand-guardian",
               icon_color: palette.green,
             },
             {
@@ -96,7 +96,7 @@ const default_configuration = {
             {
               name: "nyt",
               url: "https://www.nytimes.com",
-              icon: "building-skyscraper",
+              icon: "brand-nytimes",
               icon_color: palette.blue,
             },
             {
