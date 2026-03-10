@@ -17,7 +17,7 @@ const default_configuration = {
     format: "k:i p",
     icon_color: palette.maroon,
   },
-
+  additionalClocks: [],
   search: {
     engines: {
       p: ["https://www.perplexity.ai/search/?q=", "PerplexityAI"],
@@ -84,7 +84,7 @@ const default_configuration = {
             {
               name: "the guardian",
               url: "https://www.theguardian.com",
-              icon: "news",
+              icon: "writing",
               icon_color: palette.green,
             },
             {
@@ -96,7 +96,7 @@ const default_configuration = {
             {
               name: "nyt",
               url: "https://www.nytimes.com",
-              icon: "newspaper",
+              icon: "building-skyscraper",
               icon_color: palette.blue,
             },
             {
