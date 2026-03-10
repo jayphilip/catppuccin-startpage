@@ -63,7 +63,13 @@ const default_configuration = {
               url: "https://mail.google.com",
               icon: "brand-gmail",
               icon_color: palette.green,
-            }
+            },
+            {
+              name: "notion",
+              url: "https://www.notion.so",
+              icon: "brand-notion",
+              icon_color: palette.mauve,
+            },
           ],
         },
         {
@@ -123,16 +129,10 @@ const default_configuration = {
               icon_color: palette.peach,
             },
             {
-              name: "Runpod",
+              name: "runpod",
               url: "https://runpod.io",
               icon: "server",
               icon_color: palette.green,
-            },
-            {
-              name: "hugging face",
-              url: "https://huggingface.co",
-              icon: "mood-smile",
-              icon_color: palette.yellow,
             },
             {
               name: "papers with code",
@@ -158,12 +158,6 @@ const default_configuration = {
               icon_color: palette.peach,
             },
             {
-              name: "exercism",
-              url: "https://exercism.org",
-              icon: "code-minus",
-              icon_color: palette.red,
-            },
-            {
               name: "aoc",
               url: "https://adventofcode.com",
               icon: "brand-linktree",
@@ -174,13 +168,7 @@ const default_configuration = {
               url: "https://neetcode.io",
               icon: "topology-star-3",
               icon_color: palette.green,
-            },
-            {
-              name: "hackerrank",
-              url: "https://www.hackerrank.com",
-              icon: "brand-open-source",
-              icon_color: palette.peach,
-            },
+            }
           ],
         },
         {
@@ -205,15 +193,27 @@ const default_configuration = {
           links: [
             {
               name: "reddit",
-              url: "https://www.reddit.com/r/unixporn",
+              url: "https://www.reddit.com",
               icon: "brand-reddit",
               icon_color: palette.red,
-            }
+            },
+            {
+              name: "linkedin",
+              url: "https://www.linkedin.com",
+              icon: "brand-linkedin",
+              icon_color: palette.blue,
+            },
           ],
         },
         {
           name: "gaming",
           links: [
+            {
+              name: "steam",
+              url: "https://store.steampowered.com",
+              icon: "brand-steam",
+              icon_color: palette.blue,
+            },
           ],
         },
         {

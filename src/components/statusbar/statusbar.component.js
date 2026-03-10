@@ -289,8 +289,8 @@ class Statusbar extends Component {
 
     if (target.shadow && target.shadow.activeElement) return;
 
-    // Only act on predominantly horizontal scroll to avoid accidental switches on vertical scroll
-    const delta = Math.abs(deltaX) >= Math.abs(deltaY) ? deltaX : (wheelDelta != null ? -wheelDelta : deltaY);
+    // Prioritise horizontal trackpad swipes (deltaX); fall back to mouse wheel / vertical scroll
+    const delta = deltaX || (wheelDelta ? -wheelDelta : deltaY);
 
     // Find currently active tab
     let activeTab = -1;
